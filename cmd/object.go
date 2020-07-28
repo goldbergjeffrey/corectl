@@ -13,7 +13,7 @@ var publishObjectCmd = &cobra.Command{
 	Args:    cobra.ExactArgs(1),
 	Short:   "Publish a generic object, like to make a sheet public",
 	Long:    "Publish a generic object, like to make a sheet public",
-	Example: "corectl object publish OBJECT-ID",
+	Example: "corectl object publish OBJECT-ID -a APP-ID",
 
 	Run: func(ccmd *cobra.Command, args []string) {
 		state := internal.PrepareEngineState(rootCtx, headers, tlsClientConfig, false, false)
@@ -26,7 +26,7 @@ var unPublishObjectCmd = &cobra.Command{
 	Args:    cobra.ExactArgs(1),
 	Short:   "Unpublish a generic object, like to make a sheet private",
 	Long:    "Unpublish a generic object, like to make a sheet private",
-	Example: "corectl object unpublish OBJECT-ID",
+	Example: "corectl object unpublish OBJECT-ID -a APP-ID",
 
 	Run: func(ccmd *cobra.Command, args []string) {
 		state := internal.PrepareEngineState(rootCtx, headers, tlsClientConfig, false, false)
@@ -141,5 +141,5 @@ var objectCmd = &cobra.Command{
 }
 
 func init() {
-	objectCmd.AddCommand(listObjectsCmd, setObjectsCmd, getObjectPropertiesCmd, getObjectLayoutCmd, getObjectDataCmd, removeObjectCmd)
+	objectCmd.AddCommand(listObjectsCmd, setObjectsCmd, getObjectPropertiesCmd, getObjectLayoutCmd, getObjectDataCmd, removeObjectCmd, publishObjectCmd, unPublishObjectCmd)
 }
