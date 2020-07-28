@@ -8,6 +8,32 @@ import (
 	"github.com/spf13/viper"
 )
 
+var publishObjectCmd = &cobra.Command{
+	Use:     "publish <object-id>",
+	Args:    cobra.ExactArgs(1),
+	Short:   "Publish a generic object, like to make a sheet public",
+	Long:    "Publish a generic object, like to make a sheet public",
+	Example: "corectl object publish OBJECT-ID",
+
+	Run: func(ccmd *cobra.Command, args []string) {
+		state := internal.PrepareEngineState(rootCtx, headers, tlsClientConfig, false, false)
+		internal.Publish(rootCtx, state.Doc, args[0])
+	},
+}
+
+var unPublishObjectCmd = &cobra.Command{
+	Use:     "unpublish <object-id>",
+	Args:    cobra.ExactArgs(1),
+	Short:   "Unpublish a generic object, like to make a sheet private",
+	Long:    "Unpublish a generic object, like to make a sheet private",
+	Example: "corectl object unpublish OBJECT-ID",
+
+	Run: func(ccmd *cobra.Command, args []string) {
+		state := internal.PrepareEngineState(rootCtx, headers, tlsClientConfig, false, false)
+		internal.UnPublish(rootCtx, state.Doc, args[0])
+	},
+}
+
 var setObjectsCmd = withLocalFlags(&cobra.Command{
 	Use:   "set <glob-pattern-path-to-objects-files.json",
 	Args:  cobra.ExactArgs(1),
